@@ -1,0 +1,33 @@
+{% sw_extends '@Storefront/storefront/component/delivery-information.html.twig' %}
+
+{% block component_delivery_information %}
+    {# Core's "Available, delivery time 2-5 days" stays as it is. #}
+    {{ parent() }}
+
+    {% set msEstimate = page.extensions.msDeliveryEstimate ?? null %}
+
+    {# Only on the product detail page, and only for the product the estimate belongs to. #}
+    {% if msEstimate and page.product is defined and product.id == page.product.id %}
+        {% set msLocale = app.request.locale %}
+        {% set msEarliest = msEstimate.earliest|format_date(pattern='EEE, d MMM', timezone=msEstimate.timezone, locale=msLocale) %}
+        {% set msLatest = msEstimate.latest|format_date(pattern='EEE, d MMM', timezone=msEstimate.timezone, locale=msLocale) %}
+
+        <div class="ms-delivery-estimate mt-2">
+            <p class="ms-delivery-estimate__dates mb-0">
+                <strong>
+                    {% if msEarliest == msLatest %}
+                        {{ 'msLeadTime.arrivesOn'|trans({ '%date%': msEarliest }) }}
+                    {% else %}
+                        {{ 'msLeadTime.arrivesBetween'|trans({ '%earliest%': msEarliest, '%latest%': msLatest }) }}
+                    {% endif %}
+                </strong>
+            </p>
+
+            {% if msEstimate.orderBy %}
+                <p class="ms-delivery-estimate__cutoff text-muted small mb-0">
+                    {{ 'msLeadTime.orderBefore'|trans({ '%time%': msEstimate.orderBy|format_time(pattern='HH:mm', timezone=msEstimate.timezone, locale=msLocale) }) }}
+                </p>
+            {% endif %}
+        </div>
+    {% endif %}
+{% endblock %}

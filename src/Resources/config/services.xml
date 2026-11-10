@@ -1,0 +1,31 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+        <!-- Pure logic, no dependencies -->
+        <service id="Ms\LeadTime\Service\DeliveryEstimateCalculator"/>
+        <service id="Ms\LeadTime\Service\HolidayListParser"/>
+
+        <!-- Shopware glue: settings, clock, logging -->
+        <service id="Ms\LeadTime\Service\DeliveryEstimateProvider">
+            <argument type="service" id="Shopware\Core\System\SystemConfig\SystemConfigService"/>
+            <argument type="service" id="Ms\LeadTime\Service\DeliveryEstimateCalculator"/>
+            <argument type="service" id="Ms\LeadTime\Service\HolidayListParser"/>
+            <argument type="service" id="logger"/>
+        </service>
+
+        <!-- Product page -->
+        <service id="Ms\LeadTime\Storefront\ProductPageSubscriber">
+            <argument type="service" id="Ms\LeadTime\Service\DeliveryEstimateProvider"/>
+            <tag name="kernel.event_subscriber"/>
+        </service>
+        <!-- Cart and checkout: runs after core's DeliveryProcessor (priority -5000) -->
+        <service id="Ms\LeadTime\Checkout\DeliveryDateProcessor">
+            <argument type="service" id="Ms\LeadTime\Service\DeliveryEstimateProvider"/>
+            <tag name="shopware.cart.processor" priority="-5100"/>
+        </service>
+    </services>
+</container>

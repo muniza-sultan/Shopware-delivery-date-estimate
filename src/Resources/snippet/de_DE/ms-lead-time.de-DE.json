@@ -1,0 +1,7 @@
+{
+    "msLeadTime": {
+        "arrivesBetween": "Lieferung zwischen %earliest% und %latest%",
+        "arrivesOn": "Lieferung am %date%",
+        "orderBefore": "Bis %time% Uhr bestellen, Versand noch heute"
+    }
+}

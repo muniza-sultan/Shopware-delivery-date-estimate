@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/shopware/shopware/trunk/src/Core/System/SystemConfig/Schema/config.xsd">
+
+    <card>
+        <title>Delivery date estimate</title>
+        <title lang="de-DE">Lieferdatum-Prognose</title>
+
+        <input-field type="bool">
+            <name>active</name>
+            <label>Show delivery date estimates</label>
+            <label lang="de-DE">Lieferdatum-Prognose anzeigen</label>
+            <helpText>Uses each product's delivery time (Catalogues → Products → Delivery time). Products without one show no estimate.</helpText>
+            <helpText lang="de-DE">Verwendet die Lieferzeit des Produkts (Kataloge → Produkte → Lieferzeit). Produkte ohne Lieferzeit zeigen keine Prognose.</helpText>
+            <defaultValue>true</defaultValue>
+        </input-field>
+
+        <input-field type="int">
+            <name>cutoffHour</name>
+            <label>Order cutoff (hour of day, shop time)</label>
+            <label lang="de-DE">Bestellschluss (Uhrzeit, Shop-Zeit)</label>
+            <helpText>Orders before this hour count from today, later orders from the next business day. Example: 14 means 14:00.</helpText>
+            <helpText lang="de-DE">Bestellungen vor dieser Uhrzeit zählen ab heute, spätere ab dem nächsten Werktag. Beispiel: 14 bedeutet 14:00 Uhr.</helpText>
+            <defaultValue>14</defaultValue>
+            <min>0</min>
+            <max>23</max>
+        </input-field>
+
+        <input-field type="text">
+            <name>timezone</name>
+            <label>Shop time zone</label>
+            <label lang="de-DE">Zeitzone des Shops</label>
+            <helpText>Used for the cutoff and for "today". IANA name, e.g. Europe/Berlin.</helpText>
+            <helpText lang="de-DE">Gilt für den Bestellschluss und für "heute". IANA-Name, z. B. Europe/Berlin.</helpText>
+            <defaultValue>Europe/Berlin</defaultValue>
+        </input-field>
+
+        <input-field type="bool">
+            <name>businessDaysOnly</name>
+            <label>Count business days only (skip weekends)</label>
+            <label lang="de-DE">Nur Werktage zählen (Wochenenden überspringen)</label>
+            <defaultValue>true</defaultValue>
+        </input-field>
+
+        <input-field type="textarea">
+            <name>holidays</name>
+            <label>Holidays (no dispatch or delivery)</label>
+            <label lang="de-DE">Feiertage (kein Versand, keine Zustellung)</label>
+            <helpText>One per line. MM-DD repeats every year (12-25), YYYY-MM-DD is a single day (2027-03-26 for Good Friday). Text after the date is a note. Moving holidays like Easter need full dates each year.</helpText>
+            <helpText lang="de-DE">Ein Eintrag pro Zeile. MM-TT gilt jedes Jahr (12-25), JJJJ-MM-TT nur einmal (2027-03-26 für Karfreitag). Text nach dem Datum ist eine Notiz. Bewegliche Feiertage wie Ostern jedes Jahr als volles Datum eintragen.</helpText>
+            <defaultValue>01-01 New Year's Day
+05-01 Labour Day
+10-03 German Unity Day
+12-24 Christmas Eve
+12-25 Christmas Day
+12-26 Second Day of Christmas
+12-31 New Year's Eve</defaultValue>
+        </input-field>
+    </card>
+</config>

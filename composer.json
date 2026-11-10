@@ -1,0 +1,31 @@
+{
+    "name": "muniza-sultan/ms-delivery-estimate",
+    "description": "Turns product delivery times into concrete delivery dates that skip weekends and holidays, with an order cutoff, on the product page and in checkout.",
+    "type": "shopware-platform-plugin",
+    "version": "1.0.0",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Muniza Sultan"
+        }
+    ],
+    "require": {
+        "shopware/core": "~6.7.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Ms\\LeadTime\\": "src/"
+        }
+    },
+    "extra": {
+        "shopware-plugin-class": "Ms\\LeadTime\\MsLeadTime",
+        "label": {
+            "en-GB": "Delivery date estimate",
+            "de-DE": "Lieferdatum-Prognose"
+        },
+        "description": {
+            "en-GB": "Shows \"Arrives between ... and ...\" on the product page and corrects checkout delivery dates to skip weekends and holidays, with an order cutoff.",
+            "de-DE": "Zeigt \"Lieferung zwischen ... und ...\" auf der Produktseite und korrigiert die Lieferdaten im Checkout: ohne Wochenenden und Feiertage, mit Bestellschluss."
+        }
+    }
+}
