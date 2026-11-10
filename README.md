@@ -4,6 +4,8 @@ A Shopware 6.7 plugin that turns a product's delivery time ("2-5 days") into rea
 
 ![Product page](docs/product-page.png)
 
+*Product page on Tue 10 Nov 2026, with 10–12 Nov set as test holidays (see [the screenshots below](#the-problem)).*
+
 ## The problem
 
 Shopware already has delivery times, and in the cart it even turns them into dates. But it counts **calendar days**:
@@ -15,9 +17,16 @@ Shopware already has delivery times, and in the cart it even turns them into dat
 | Order on 23 Dec at 15:00, "2-3 days" | happily promises 25 Dec | skips holidays and the weekend: 30 Dec – 4 Jan |
 | Product page | "2-5 days" only | "Arrives between Thu, 12 Nov and Tue, 17 Nov" plus "Order before 14:00 to ship today" |
 
-| Before (core) | After (plugin) |
+| Before: core | After: plugin, with test holidays |
 |---|---|
 | ![Cart before](docs/cart-before.png) | ![Cart after](docs/cart-after.png) |
+
+Both carts hold the same product ("2-5 days"), ordered on Tue 10 Nov 2026. For the "after" screenshot, 10, 11 and 12 Nov were entered as test holidays to show the holiday handling:
+
+- **Core** ignores holidays and weekends: 10 Nov + 2 to 5 calendar days = **12/11 – 15/11**, ending on a Sunday.
+- **Plugin:** 10–12 Nov are holidays, so the order ships on **Fri 13 Nov**. 2 working days later is Tue 17 Nov, 5 working days later Fri 20 Nov (the weekend is skipped) = **17/11 – 20/11**.
+
+Without the test holidays, the plugin shows 12/11 – 17/11, as in the first table row above.
 
 ## Features
 
